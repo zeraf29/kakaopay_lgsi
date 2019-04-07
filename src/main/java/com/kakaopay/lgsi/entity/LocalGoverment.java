@@ -12,13 +12,13 @@ import lombok.Setter;
 @Entity
 @Getter @Setter
 @NoArgsConstructor
-public class LocalGoverment {
+public class LocalGoverment{
 
 	@Id
 	@Column(length=10)
 	private String localGovermentCode;
 	
-	@Column(length=10)
+	@Column(length=45)
 	private String localGovermentName;
 		
 }

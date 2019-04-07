@@ -4,15 +4,20 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.opencsv.CSVParser;
+import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
 
 
 @Controller
@@ -29,19 +34,28 @@ public class LgsiWebController {
     }
 	
 	//local csv data file location
-	private static String csvFileName = "/src/main/resources/static/2019°æ·Â°øÃ¤_°³¹ß_»çÀü°úÁ¦1_ÁöÀÚÃ¼Çù¾àÁö¿øAPI°³¹ß_v.1.csv";
-	
-	@RequestMapping(value = "/insert/csv", method = RequestMethod.GET)
-	public void insertCsv() {
+	private static String csvFileName = "/src/main/resources/static/2019ê²½ë ¥ê³µì±„_ì„œë²„ê°œë°œ_ì‚¬ì „ê³¼ì œ1_ì§€ìì²´í˜‘ì•½ì§€ì›ì •ë³´_16ë…„12ì›”í˜„ì¬__ìµœì¢….csv";
+	@RequestMapping(value = "/insert/csv/local", method = RequestMethod.GET)
+	public void insertCsvFromLocal() {
 		try {
-			InputStreamReader is = new InputStreamReader(new FileInputStream(csvFileName), "EUC-KR");
-	         CSVReader reader = new CSVReader(is, ',', '"', 0);
-	         List<String[]> list = reader.readAll();
-	         
+			ClassPathResource cpr = new ClassPathResource(csvFileName);
+			InputStreamReader is = new InputStreamReader(new FileInputStream(cpr.getPath()), "EUC-KR");
+	        Iterator<String[]> csvRowIterator = new CSVReaderBuilder(is)
+	        						.withCSVParser(
+	        								new CSVParserBuilder()
+	        								.withSeparator(',')
+	        								.build()
+	        						).withSkipLines(1).build().iterator();
+	        int index = 0;
+	        while(csvRowIterator.hasNext()) {
+	        	String[] key = csvRowIterator.next();
+	        	System.out.println(index+":"+key[0]+":"+key[1]+":"+key[2]);
+	        	index++;
+	        }
+	        
+	        is.close();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		
-		
 	}
 }
