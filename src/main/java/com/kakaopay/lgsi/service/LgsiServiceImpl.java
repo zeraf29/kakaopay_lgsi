@@ -24,13 +24,12 @@ public class LgsiServiceImpl implements LgsiService{
 	private LgsiLocalGovermentSupportRepository lgsiLocalGovermentSupportRepository;
 
 	@Override
-	//@Transactional
-	public String lgsiSaveAndUpdateFromCSV(Iterator<String[]> csvRowIterator) throws Exception {
+	@Transactional
+	public String saveAndUpdateLgsiFromCSV(Iterator<String[]> csvRowIterator) throws Exception {
 		// TODO Auto-generated method stub
 		String returnValue = "true";
 		
 		LocalGoverment localGoverment;
-		List<LocalGoverment> listLocalGoverment = new ArrayList<LocalGoverment>();
 		LocalGovermentSupport localGovermentSupport;
 		List<LocalGovermentSupport> listLocalGovermentSupport = new ArrayList<LocalGovermentSupport>();
 		
@@ -44,16 +43,12 @@ public class LgsiServiceImpl implements LgsiService{
 	        	localGovermentSupport = new LocalGovermentSupport();
 	        	
 	        	//Insert LocalGoverment Table
-	        	//localGoverment.setLocalGovermentCode(String.format("%04d", Integer.parseInt(key[0])));
 	        	localGoverment.setLocalGovermentName(key[1]);
-	        	listLocalGoverment.add(localGoverment);
 	        	
-	        	//Insert LocalGovermentSupport Table
-	        	//localGovermentSupport.setLocalGovermentCode(String.format("%04d", Integer.parseInt(key[0])));
-	        	localGovermentSupport.setLocalGoverment(localGoverment);
+	        	//Insert LocalGovermentSupport TablelocalGovermentSupport.setLocalGoverment(localGoverment);
 	        	localGovermentSupport.setTarget(key[2]);
 	        	localGovermentSupport.setUsage(key[3]);
-	        	localGovermentSupport.setLimitRange(key[4]);
+	        	localGovermentSupport.setLimit(key[4]);
 	        	localGovermentSupport.setRate(key[5]);
 	        	localGovermentSupport.setInstitute(key[6]);
 	        	localGovermentSupport.setMgmt(key[7]);
@@ -64,82 +59,18 @@ public class LgsiServiceImpl implements LgsiService{
 	        	
 	        	
 	        }
-			//lgsiLocalGovermentRepository.saveAll(listLocalGoverment);
-        	lgsiLocalGovermentSupportRepository.saveAll(listLocalGovermentSupport);
-			
-			System.out.println("Select!?!?!");
-			listLocalGoverment = new ArrayList<LocalGoverment>();
-			listLocalGoverment = lgsiLocalGovermentRepository.findAll();
-			System.out.println("Cnt"+listLocalGoverment.size());
-			for(LocalGoverment temp : listLocalGoverment) {
-				System.out.println(temp.getLocalGovermentCode()+":"+temp.getLocalGovermentName());
-			}
-			
-			
-		}catch(Exception e){
-			System.out.println(e.getMessage());
-			returnValue = "false";
-		}
-		return returnValue;
-	}
-	/*
-	@Override
-	public String selectLocalGovermentSupportData() throws Exception {
-		// TODO Auto-generated method stub
-		String returnValue = "true";
-		
-		LocalGoverment localGoverment;
-		List<LocalGoverment> listLocalGoverment = new ArrayList<LocalGoverment>();
-		LocalGovermentSupport localGovermentSupport;
-		List<LocalGovermentSupport> listLocalGovermentSupport = new ArrayList<LocalGovermentSupport>();
-		
-		try {
-			while(csvRowIterator.hasNext()) {
-	        	String[] key = csvRowIterator.next();
-	        	System.out.println("reg"+String.format("%04d", Integer.parseInt(key[0]))+":"+key[1]+":"+key[2]);
-	        	
-	        	//Init Entity
-	        	localGoverment = new LocalGoverment();
-	        	localGovermentSupport = new LocalGovermentSupport();
-	        	
-	        	//Insert LocalGoverment Table
-	        	localGoverment.setLocalGovermentCode(String.format("%04d", Integer.parseInt(key[0])));
-	        	localGoverment.setLocalGovermentName(key[1]);
-	        	listLocalGoverment.add(localGoverment);
-	        	
-	        	//Insert LocalGovermentSupport Table
-	        	localGovermentSupport.setLocalGovermentCode(String.format("%04d", Integer.parseInt(key[0])));
-	        	localGovermentSupport.setTarget(key[2]);
-	        	localGovermentSupport.setUsage(key[3]);
-	        	localGovermentSupport.setLimitRange(key[4]);
-	        	localGovermentSupport.setRate(key[5]);
-	        	localGovermentSupport.setInstitute(key[6]);
-	        	localGovermentSupport.setMgmt(key[7]);
-	        	localGovermentSupport.setReception(key[8]);
-	        	localGovermentSupport.setRegDate(new Date());
-	        	localGovermentSupport.setModDate(new Date());
-	        	listLocalGovermentSupport.add(localGovermentSupport);
-	        	
-	        	
-	        }
-        	lgsiLocalGovermentRepository.saveAll(listLocalGoverment);
 			lgsiLocalGovermentSupportRepository.saveAll(listLocalGovermentSupport);
 			
-			System.out.println("Select!?!?!");
-			listLocalGoverment = new ArrayList<LocalGoverment>();
-			listLocalGoverment = lgsiLocalGovermentRepository.findAll();
-			System.out.println("Cnt"+listLocalGoverment.size());
-			for(LocalGoverment temp : listLocalGoverment) {
-				System.out.println(temp.getLocalGovermentCode()+":"+temp.getLocalGovermentName());
-			}
-			
-			
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 			returnValue = "false";
 		}
 		return returnValue;
 	}
-	*/
 	
+	@Override
+	public List<LocalGovermentSupport> getLgsiSupportAllInformation() throws Exception {
+		List<LocalGovermentSupport> listLocalGovermentSupport = lgsiLocalGovermentSupportRepository.findAll();
+		return listLocalGovermentSupport;
+	}
 }

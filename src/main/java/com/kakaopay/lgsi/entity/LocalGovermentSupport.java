@@ -4,12 +4,10 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 
 import lombok.Getter;
@@ -28,7 +26,6 @@ public class LocalGovermentSupport {
 	@ManyToOne(targetEntity=LocalGoverment.class, cascade={CascadeType.ALL})
 	@JoinColumn(name="Local_Goverment_Code")
 	private LocalGoverment localGoverment;
-	//private String localGovermentCode;
 	
 	@Column(length=150)
 	private String target;
@@ -36,8 +33,8 @@ public class LocalGovermentSupport {
 	@Column(length=10)
 	private String usage;
 	
-	@Column(length=15)
-	private String limitRange;
+	@Column(name="limitRange", length=15)
+	private String limit;
 	
 	@Column(length=10)
 	private String rate;

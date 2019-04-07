@@ -58,11 +58,12 @@ public class LgsiWebController {
 	}
 	
 	@Configuration
+	@RequestMapping(value = "/hConsole/*")
 	public class BlogConfig {
 		@Bean
 		public ServletRegistrationBean h2servletRegistration() {
 			ServletRegistrationBean registration = new ServletRegistrationBean(new WebServlet());
-			registration.addUrlMappings("/console/*");
+			//registration.addUrlMappings("/console/*");
 			return registration;
 		}
 	}
