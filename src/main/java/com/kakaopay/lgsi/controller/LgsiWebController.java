@@ -1,22 +1,20 @@
 package com.kakaopay.lgsi.controller;
 
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
+import org.h2.server.web.WebServlet;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
-import com.opencsv.CSVParser;
 import com.opencsv.CSVParserBuilder;
-import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 
 
@@ -56,6 +54,16 @@ public class LgsiWebController {
 	        is.close();
 		}catch(Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	@Configuration
+	public class BlogConfig {
+		@Bean
+		public ServletRegistrationBean h2servletRegistration() {
+			ServletRegistrationBean registration = new ServletRegistrationBean(new WebServlet());
+			registration.addUrlMappings("/console/*");
+			return registration;
 		}
 	}
 }

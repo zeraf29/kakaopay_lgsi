@@ -42,6 +42,30 @@ public class LgsiApiController {
 	        								.build()
 	        						).withSkipLines(1).build().iterator();
 	       
+			rMap.put("result", lgsiService.lgsiSaveAndUpdateFromCSV(csvRowIterator));
+			is.close();
+	        
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return rMap;
+	}
+	
+	/*
+	//Get List local goverment support information
+	@RequestMapping(value = "/insert/csv/local", method = RequestMethod.GET)
+	public @ResponseBody Map<String,String> insertCsvFromLocal() throws Exception {
+		Map<String, String> rMap = new HashMap<String, String>();
+		try {
+			ClassPathResource cpr = new ClassPathResource(csvFileName);
+			InputStreamReader is = new InputStreamReader(new FileInputStream(cpr.getPath()), "EUC-KR");
+			Iterator<String[]> csvRowIterator = new CSVReaderBuilder(is)
+	        						.withCSVParser(
+	        								new CSVParserBuilder()
+	        								.withSeparator(',')
+	        								.build()
+	        						).withSkipLines(1).build().iterator();
+	       
 			rMap.put("result", lgsiService.insertEcoTourismDataFromCSV(csvRowIterator));
 			is.close();
 	        
@@ -50,4 +74,5 @@ public class LgsiApiController {
 		}
 		return rMap;
 	}
+	*/
 }

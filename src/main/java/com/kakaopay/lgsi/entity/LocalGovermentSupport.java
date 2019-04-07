@@ -1,11 +1,16 @@
 package com.kakaopay.lgsi.entity;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,8 +25,10 @@ public class LocalGovermentSupport {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idx;
 	
-	@Column(length=10)
-	private String localGovermentCode;
+	@ManyToOne(targetEntity=LocalGoverment.class, fetch=FetchType.LAZY, cascade={CascadeType.ALL})
+	@JoinColumn(name="Local_Goverment_Code")
+	private LocalGoverment localGoverment;
+	//private String localGovermentCode;
 	
 	@Column(length=150)
 	private String target;

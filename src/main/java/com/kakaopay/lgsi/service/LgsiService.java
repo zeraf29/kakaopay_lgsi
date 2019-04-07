@@ -4,5 +4,5 @@ import java.util.Iterator;
 
 public interface LgsiService {
 
-	String insertEcoTourismDataFromCSV(Iterator<String[]> csvRowIterator) throws Exception;
+	String lgsiSaveAndUpdateFromCSV(Iterator<String[]> csvRowIterator) throws Exception;
 }
