@@ -4,6 +4,7 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,7 +24,7 @@ public class LocalGovermentSupport {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idx;
 	
-	@ManyToOne(targetEntity=LocalGoverment.class, cascade={CascadeType.ALL})
+	@ManyToOne(targetEntity=LocalGoverment.class, fetch=FetchType.LAZY, cascade={CascadeType.ALL})
 	@JoinColumn(name="Local_Goverment_Code")
 	private LocalGoverment localGoverment;
 	

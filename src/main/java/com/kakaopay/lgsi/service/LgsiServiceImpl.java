@@ -46,6 +46,7 @@ public class LgsiServiceImpl implements LgsiService{
 	        	localGoverment.setLocalGovermentName(key[1]);
 	        	
 	        	//Insert LocalGovermentSupport TablelocalGovermentSupport.setLocalGoverment(localGoverment);
+	        	localGovermentSupport.setLocalGoverment(localGoverment);
 	        	localGovermentSupport.setTarget(key[2]);
 	        	localGovermentSupport.setUsage(key[3]);
 	        	localGovermentSupport.setLimit(key[4]);
@@ -72,5 +73,11 @@ public class LgsiServiceImpl implements LgsiService{
 	public List<LocalGovermentSupport> getLgsiSupportAllInformation() throws Exception {
 		List<LocalGovermentSupport> listLocalGovermentSupport = lgsiLocalGovermentSupportRepository.findAll();
 		return listLocalGovermentSupport;
+	}
+	
+	@Override
+	public List<LocalGoverment> getLgsiSupportInformationByLocalGovermentName(String localGovermentName) throws Exception {
+		List<LocalGoverment> listLocalGoverment = lgsiLocalGovermentRepository.findByLocalGovermentName(localGovermentName);
+		return listLocalGoverment;
 	}
 }

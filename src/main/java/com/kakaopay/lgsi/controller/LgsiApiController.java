@@ -10,11 +10,13 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kakaopay.lgsi.entity.LocalGoverment;
 import com.kakaopay.lgsi.entity.LocalGovermentSupport;
 import com.kakaopay.lgsi.service.LgsiService;
 import com.opencsv.CSVParserBuilder;
@@ -53,7 +55,7 @@ public class LgsiApiController {
 	
 	
 	//Get List local goverment support All information
-	@RequestMapping(value = "/get", method = RequestMethod.GET)
+	@RequestMapping(value = "/get/all", method = RequestMethod.GET)
 	public @ResponseBody List<LocalGovermentSupport> getLgsiAllInformation(){
 		List<LocalGovermentSupport> listLocalGovermentSupport = new ArrayList<LocalGovermentSupport>();
 		try {
@@ -64,4 +66,15 @@ public class LgsiApiController {
 		return listLocalGovermentSupport;
 	}
 	
+	//Get List local goverment support information by localGovermentName
+	@RequestMapping(value = "/get/target/{localGovermentName}", method = RequestMethod.GET)
+	public @ResponseBody List<LocalGoverment> getLgsiInformationByLocalGovermentName(@PathVariable("localGovermentName") String localGovermentName){
+		List<LocalGoverment> listLocalGoverment = new ArrayList<LocalGoverment>();
+		try {
+			listLocalGoverment = lgsiService.getLgsiSupportInformationByLocalGovermentName(localGovermentName);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return listLocalGoverment;
+	}	
 }
