@@ -1,6 +1,10 @@
 package com.kakaopay.lgsi.common;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
@@ -15,27 +19,34 @@ import org.hibernate.internal.util.config.ConfigurationHelper;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.type.Type;
 
-public class SeqGenerator extends IdentityGenerator{
+public class SeqGenerator implements IdentifierGenerator {
 
-	public Serializable generate(SessionImplementor session, Object object) throws HibernateException {
+	@Override
+	public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
 		// TODO Auto-generated method stub
-		
 		String prefix = "reg";
-		/*
-		if(object instanceof Identifiable) {
-            Identifiable identifiable = (Identifiable) object;
-            Serializable id = identifiable.getId();
-            
-            if(id != null) {
-                return prefix+StringUtils.leftPad(id.toString(),4, '0');
+		
+		Connection connection = session.connection();
+        try {
+ 
+            PreparedStatement ps = connection
+                    .prepareStatement("SELECT nextval ('HIBERNATE_SEQUENCE') as nextval");
+ 
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int id = rs.getInt("nextval");
+                String code = prefix + StringUtils.leftPad(Integer.toString(id),4,'0');
+                return code;
             }
+ 
+        } catch (SQLException e) {
+            throw new HibernateException(
+                    "Unable to generate Code Sequence");
         }
-		System.out.println(((Identifiable) object).getId());
-		return super.generate(session, object);
-		*/
-		Identifiable identifiable = (Identifiable) object;
-        Serializable id = identifiable.getId();
-		return prefix+StringUtils.leftPad(id.toString(),4, '0');
+		
+		return null;
 	}
 
+	
+	
 }

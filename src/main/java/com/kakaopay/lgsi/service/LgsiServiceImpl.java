@@ -37,7 +37,7 @@ public class LgsiServiceImpl implements LgsiService{
 		try {
 			while(csvRowIterator.hasNext()) {
 	        	String[] key = csvRowIterator.next();
-	        	//System.out.println("reg"+String.format("%04d", Integer.parseInt(key[0]))+":"+key[1]+":"+key[2]);
+	        	System.out.println("reg"+String.format("%04d", Integer.parseInt(key[0]))+":"+key[1]+":"+key[2]);
 	        	
 	        	//Init Entity
 	        	localGoverment = new LocalGoverment();

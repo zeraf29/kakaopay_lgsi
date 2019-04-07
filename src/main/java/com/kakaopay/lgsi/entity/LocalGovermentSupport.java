@@ -25,7 +25,7 @@ public class LocalGovermentSupport {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idx;
 	
-	@ManyToOne(targetEntity=LocalGoverment.class, fetch=FetchType.LAZY, cascade={CascadeType.ALL})
+	@ManyToOne(targetEntity=LocalGoverment.class, cascade={CascadeType.ALL})
 	@JoinColumn(name="Local_Goverment_Code")
 	private LocalGoverment localGoverment;
 	//private String localGovermentCode;
