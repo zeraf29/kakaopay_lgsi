@@ -11,4 +11,5 @@ public interface LgsiService {
 	List<LocalGovermentSupport> getLgsiSupportAllInformation() throws Exception;
 	List<LocalGovermentSupport> getLgsiSupportInformationByRegion(String region) throws Exception;
 	List<LocalGovermentSupport> getLgsiInformationOrderByLimit(int limit) throws Exception;
+	List<LocalGovermentSupport> getLgsiInformationLowestRate() throws Exception;
 }

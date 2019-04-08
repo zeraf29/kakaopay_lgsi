@@ -92,5 +92,12 @@ public class LgsiServiceImpl implements LgsiService{
 		return listLocalGovermentSupport;
 	}
 	
+	@Override
+	public List<LocalGovermentSupport> getLgsiInformationLowestRate() throws Exception {
+		List<LocalGovermentSupport> listLocalGovermentSupport = lgsiLocalGovermentSupportRepository.findAll();
+		listLocalGovermentSupport = listLocalGovermentSupport.subList(0, 1);
+		return listLocalGovermentSupport;
+	}
+	
 	
 }

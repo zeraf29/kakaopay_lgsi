@@ -79,16 +79,38 @@ public class LgsiApiController {
 		return listLocalGovermentSupport;
 	}	
 	
-	//Get List local goverment support information by localGovermentName
-	@RequestMapping(value = "/get/order/limit/{limit}", method = RequestMethod.GET)
-	public @ResponseBody List<LocalGovermentSupport> getLgsiInformationOrderByLimit(@PathVariable(name="limit", required = false) String limit){
+	//Get List local goverment support information about High limit
+	@RequestMapping(value = "/get/limit/{limit}", method = RequestMethod.GET)
+	public @ResponseBody Map<String,String> getLgsiInformationOrderByLimit(@PathVariable(name="limit", required = false) String limit){
 		int limitCnt = Integer.parseInt((StringUtils.isEmpty(limit) ? "0" : limit));
 		List<LocalGovermentSupport> listLocalGovermentSupport = new ArrayList<LocalGovermentSupport>();
+		Map<String, String> rMap = new HashMap<String, String>();
+		String rString = "";
 		try {
 			listLocalGovermentSupport = lgsiService.getLgsiInformationOrderByLimit(limitCnt);
+			for(LocalGovermentSupport temp : listLocalGovermentSupport) {
+				rString += temp.getLocalGoverment().getRegion()+",";
+			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return listLocalGovermentSupport;
+		rMap.put("result", rString);
+		return rMap;
+	}
+	
+	//Get List local goverment support information about Low rate
+	@RequestMapping(value = "/get/rate", method = RequestMethod.GET)
+	public @ResponseBody Map<String,String> getLgsiInformationLowLimit(){
+		List<LocalGovermentSupport> listLocalGovermentSupport = new ArrayList<LocalGovermentSupport>();
+		Map<String, String> rMap = new HashMap<String, String>();
+		String rString = "";
+		try {
+			listLocalGovermentSupport = lgsiService.getLgsiInformationLowestRate();
+			rString += listLocalGovermentSupport.get(0).getLocalGoverment().getRegion();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		rMap.put("result", rString);
+		return rMap;
 	}
 }
