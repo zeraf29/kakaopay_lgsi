@@ -9,6 +9,4 @@ import com.kakaopay.lgsi.entity.LocalGovermentSupport;
 
 public interface LgsiLocalGovermentRepository extends JpaRepository<LocalGoverment,String>{
 
-	List<LocalGoverment> findByLocalGovermentName(String localGovermentName);
-	
 }

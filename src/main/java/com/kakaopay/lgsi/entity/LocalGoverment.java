@@ -32,13 +32,8 @@ public class LocalGoverment implements Identifiable<Long>{
 	private String localGovermentCode;
 	
 	@Column(length=45)
-	private String localGovermentName;
-	@Version
-    private Integer version;
-/*
-	@OneToMany(mappedBy="localGoverment") 
-	private List<LocalGovermentSupport> localGovermentSupport = new ArrayList<LocalGovermentSupport>();
-*/	
+	private String region;
+
 	@Override
 	public Long getId() {
 		// TODO Auto-generated method stub

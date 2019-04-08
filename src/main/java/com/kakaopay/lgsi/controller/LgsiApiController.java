@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -67,14 +68,27 @@ public class LgsiApiController {
 	}
 	
 	//Get List local goverment support information by localGovermentName
-	@RequestMapping(value = "/get/target/{localGovermentName}", method = RequestMethod.GET)
-	public @ResponseBody List<LocalGoverment> getLgsiInformationByLocalGovermentName(@PathVariable("localGovermentName") String localGovermentName){
-		List<LocalGoverment> listLocalGoverment = new ArrayList<LocalGoverment>();
+	@RequestMapping(value = "/get/target/{region}", method = RequestMethod.GET)
+	public @ResponseBody List<LocalGovermentSupport> getLgsiInformationByRegion(@PathVariable("region") String region){
+		List<LocalGovermentSupport> listLocalGovermentSupport = new ArrayList<LocalGovermentSupport>();
 		try {
-			listLocalGoverment = lgsiService.getLgsiSupportInformationByLocalGovermentName(localGovermentName);
+			listLocalGovermentSupport = lgsiService.getLgsiSupportInformationByRegion(region);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return listLocalGoverment;
+		return listLocalGovermentSupport;
 	}	
+	
+	//Get List local goverment support information by localGovermentName
+	@RequestMapping(value = "/get/order/limit/{limit}", method = RequestMethod.GET)
+	public @ResponseBody List<LocalGovermentSupport> getLgsiInformationOrderByLimit(@PathVariable(name="limit", required = false) String limit){
+		int limitCnt = Integer.parseInt((StringUtils.isEmpty(limit) ? "0" : limit));
+		List<LocalGovermentSupport> listLocalGovermentSupport = new ArrayList<LocalGovermentSupport>();
+		try {
+			listLocalGovermentSupport = lgsiService.getLgsiInformationOrderByLimit(limitCnt);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return listLocalGovermentSupport;
+	}
 }

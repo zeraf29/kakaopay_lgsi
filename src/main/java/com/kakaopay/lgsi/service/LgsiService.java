@@ -9,5 +9,6 @@ import com.kakaopay.lgsi.entity.LocalGovermentSupport;
 public interface LgsiService {
 	String saveAndUpdateLgsiFromCSV(Iterator<String[]> csvRowIterator) throws Exception;
 	List<LocalGovermentSupport> getLgsiSupportAllInformation() throws Exception;
-	List<LocalGoverment> getLgsiSupportInformationByLocalGovermentName(String localGovermentName) throws Exception;
+	List<LocalGovermentSupport> getLgsiSupportInformationByRegion(String region) throws Exception;
+	List<LocalGovermentSupport> getLgsiInformationOrderByLimit(int limit) throws Exception;
 }

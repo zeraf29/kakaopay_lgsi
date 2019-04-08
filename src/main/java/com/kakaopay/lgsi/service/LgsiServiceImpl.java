@@ -1,6 +1,8 @@
 package com.kakaopay.lgsi.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kakaopay.lgsi.common.sortLimit;
 import com.kakaopay.lgsi.entity.LocalGoverment;
 import com.kakaopay.lgsi.entity.LocalGovermentSupport;
 import com.kakaopay.lgsi.repository.LgsiLocalGovermentRepository;
@@ -43,7 +46,7 @@ public class LgsiServiceImpl implements LgsiService{
 	        	localGovermentSupport = new LocalGovermentSupport();
 	        	
 	        	//Insert LocalGoverment Table
-	        	localGoverment.setLocalGovermentName(key[1]);
+	        	localGoverment.setRegion(key[1]);
 	        	
 	        	//Insert LocalGovermentSupport TablelocalGovermentSupport.setLocalGoverment(localGoverment);
 	        	localGovermentSupport.setLocalGoverment(localGoverment);
@@ -76,8 +79,18 @@ public class LgsiServiceImpl implements LgsiService{
 	}
 	
 	@Override
-	public List<LocalGoverment> getLgsiSupportInformationByLocalGovermentName(String localGovermentName) throws Exception {
-		List<LocalGoverment> listLocalGoverment = lgsiLocalGovermentRepository.findByLocalGovermentName(localGovermentName);
-		return listLocalGoverment;
+	public List<LocalGovermentSupport> getLgsiSupportInformationByRegion(String region) throws Exception {
+		List<LocalGovermentSupport> listLocalGovermentSupport = lgsiLocalGovermentSupportRepository.findByRegion(region);
+		return listLocalGovermentSupport;
 	}
+
+	@Override
+	public List<LocalGovermentSupport> getLgsiInformationOrderByLimit(int limit) throws Exception {
+		List<LocalGovermentSupport> listLocalGovermentSupport = lgsiLocalGovermentSupportRepository.findAll();
+		Collections.sort(listLocalGovermentSupport, new sortLimit());
+		listLocalGovermentSupport = listLocalGovermentSupport.subList(0, limit);
+		return listLocalGovermentSupport;
+	}
+	
+	
 }
