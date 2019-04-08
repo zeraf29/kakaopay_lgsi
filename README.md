@@ -13,13 +13,14 @@ Kakaopay Local Goverment Support Information
    5. Spring Boot App
    6. Lombok 사용 (!IDE에 소스 Import 시 해당 PC에 Lombok 설치 필수!)
       참고: https://ojava.tistory.com/131
+   7. Gradle 사용 (!IDE에 소스 Import 시 Gradle Project Import 및 Refresh 필요!)
 2. 과제 Github 주소: https://github.com/zeraf29/kakaopay_lgsi
 3. 문제해결전략
    1. 최대한 기본 CURD를 통해 데이터 처리, H2 지원 제약에 따른 정렬 이슈는 Java 정렬로 해결
    2. 지자체 지원정보 엔티티와 지원 지자체 엔티티를 분리하여 상호 FK 처리 되도록 개발
    3. 지원한도 및 이차보전은 특정 문자열을 치환/분해 하여 숫자 변환 후 값 비교 처리
 4. 빌드 및 실행 방법
-   1. IDE(이클립스)에 import 후 Sping-Boot 기본 Web서비스로 구동(Spring Boot App)(!Lombok 설치 필수!)
+   1. IDE(이클립스)에 import 후 Sping-Boot 기본 Web서비스로 구동(Spring Boot App)(!Lombok 설치 필수!)(!Gradle Project Import!)
    2. 또는 mvn package로 파일 패키징 및 war 파일 WAS 기동(mvn spring-boot:run )
    3. Postman 또는 브라우저 개발 툴을 통해 기능 확인
 5. API Url
