@@ -1,7 +1,6 @@
 package com.kakaopay.lgsi.service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
@@ -99,5 +98,20 @@ public class LgsiServiceImpl implements LgsiService{
 		return listLocalGovermentSupport;
 	}
 	
+	@Override
+	public LocalGovermentSupport updateLocalGovermentSupport(LocalGovermentSupport localGovermentSupport) throws Exception {
+		LocalGovermentSupport localGovermentSupportTarget = lgsiLocalGovermentSupportRepository.findByIdx(localGovermentSupport.getIdx());
+		
+		localGovermentSupportTarget.setInstitute(localGovermentSupport.getInstitute());
+		localGovermentSupportTarget.setLimit(localGovermentSupport.getLimit());
+		localGovermentSupportTarget.setMgmt(localGovermentSupport.getMgmt());
+		localGovermentSupportTarget.setRate(localGovermentSupport.getRate());
+		localGovermentSupportTarget.setReception(localGovermentSupport.getReception());
+		localGovermentSupportTarget.setTarget(localGovermentSupport.getTarget());
+		localGovermentSupportTarget.setUsage(localGovermentSupport.getUsage());
+		localGovermentSupportTarget.setLocalGoverment(localGovermentSupport.getLocalGoverment());
+		
+		return lgsiLocalGovermentSupportRepository.save(localGovermentSupport);
+	}
 	
 }

@@ -14,6 +14,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -112,5 +113,32 @@ public class LgsiApiController {
 		}
 		rMap.put("result", rString);
 		return rMap;
+	}
+	
+	@RequestMapping(value = "/api/update/record", method = RequestMethod.POST)
+	public @ResponseBody LocalGovermentSupport updateLocalGovermentSupport(
+			@RequestParam(value = "idx", required=true) Long idx
+			,@RequestParam(value = "institute", required=true) String institute
+			,@RequestParam(value = "limit", required=true) String limit
+			,@RequestParam(value = "mgmt", required=true) String mgmt
+			,@RequestParam(value = "rate", required=true) String rate
+			,@RequestParam(value = "reception", required=true) String reception
+			,@RequestParam(value = "target", required=true) String target
+			,@RequestParam(value = "localGovermentCode", required=true) String localGovermentCode
+			) throws Exception{
+		
+		LocalGovermentSupport localGovermentSupport = new LocalGovermentSupport();
+		localGovermentSupport.setIdx(idx);
+		localGovermentSupport.setInstitute(institute);
+		localGovermentSupport.setLimit(limit);
+		localGovermentSupport.setMgmt(mgmt);
+		localGovermentSupport.setRate(rate);
+		localGovermentSupport.setReception(reception);
+		localGovermentSupport.setTarget(target);
+		LocalGoverment localGoverment = new LocalGoverment();
+		localGoverment.setLocalGovermentCode(localGovermentCode);
+		localGovermentSupport.setLocalGoverment(localGoverment);
+		
+		return lgsiService.updateLocalGovermentSupport(localGovermentSupport);
 	}
 }
