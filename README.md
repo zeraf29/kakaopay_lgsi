@@ -33,9 +33,9 @@ Kakaopay Local Goverment Support Information
 6. 비고
    1. 미구현 사항
      1. 특정기사 분석
-        1.특정 단어 치환 또는 NLP를 통한 분석 처리 시도 --> 향후 재시도 예정
+      1.특정 단어 치환 또는 NLP를 통한 분석 처리 시도 --> 향후 재시도 예정
      2.JWT 처리
-        1. Spring Boot Security로 구현 중 중단 --> 향후 재시도 예정
+      1. Spring Boot Security로 구현 중 중단 --> 향후 재시도 예정
          
 감사합니다. 
    
