@@ -11,7 +11,7 @@ Kakaopay Local Goverment Support Information
    3. JPA(Hibernate)
    4. H2 Database (인메모리)
    5. Spring Boot App
-2. 과제 Github 주소: https://github.com/zeraf29/kpassignment
+2. 과제 Github 주소: https://github.com/zeraf29/kakaopay_lgsi
 3. 문제해결전략
    1. 최대한 기본 CURD를 통해 데이터 처리, H2 지원 제약에 따른 정렬 이슈는 Java 정렬로 해결
    2. 지자체 지원정보 엔티티와 지원 지자체 엔티티를 분리하여 상호 FK 처리 되도록 개발
